@@ -4,7 +4,7 @@
 [ext_resource path="res://Person.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Goose.tscn" type="PackedScene" id=3]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
@@ -12,7 +12,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 [node name="Timer" type="Timer" parent="." index="0"]
 
 process_mode = 1
-wait_time = 1.0
+wait_time = 1.5
 one_shot = false
 autostart = true
 _sections_unfolded = [ "Pause" ]
@@ -24,7 +24,6 @@ position = Vector2( 403, 165 )
 [node name="Goose" parent="." index="2" instance=ExtResource( 3 )]
 
 position = Vector2( 134, 168 )
-frame = 0
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 

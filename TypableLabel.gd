@@ -53,8 +53,13 @@ func destroy():
 	queue_free()
 
 func expire():
-	prints("expired")
+	#prints("expired")
 	emit_signal("expired", self)
+	selected = false
+	queue_free()
+
+func cleanUp():
+	#prints("clean up")
 	selected = false
 	queue_free()
 	
@@ -66,12 +71,12 @@ func _process(delta):
 		expire()
 		
 func tryToRemove(letter):
-	prints("Current word ", original)
+	#prints("Current word ", original)
 	if original.empty():
 		return
 		
 	if original.begins_with(letter):
-		prints("begins")
+		#prints("begins")
 		original.erase(0, 1)
 		$Label.text = original
 		
@@ -89,5 +94,5 @@ func _input(event):
 
 		if event.pressed:
 			var key = OS.get_scancode_string(event.scancode).to_lower()
-			prints("Key pressed", key)
+			#prints("Key pressed", key)
 			tryToRemove(key)

@@ -17,25 +17,32 @@ var person_move_offset_max = SCREEN_HEIGHT - 100
 var goose_move_offset = 10
 var goose_min_x = 0
 var goose_speed_up = false
-var goose_increase_x = 10
+var goose_increase_x = 100
 var goose_decrease_x = 50
 var goose_x = 0
 
+var disable_input = false
+
 func _ready():
 	randomize()
-	$Goose.position = Vector2(100, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT-200))
+	$Goose.position = Vector2(200, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT-200))
 	$Person.position = Vector2(SCREEN_WIDTH - 200, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT-200))
 	goose_x = $Goose.position.x
+	$Goose.connect("outOfBounds", self, "fail")
+	$Goose.connect("caughtPerson", self, "win")
 	
 func _input(event):
+	if disable_input:
+		return
+		
 	if event is InputEventKey:
 		if event.is_echo():
 			return
 			
 		if event.pressed:
-			print("active_labels: ", active_labels)
+			#print("active_labels: ", active_labels)
 			var key = OS.get_scancode_string(event.scancode).to_lower()
-			print("key: ", key)
+			#print("key: ", key)
 			
 			if key == "backspace" and label_selected != null:
 				label_selected.deselect()
@@ -55,10 +62,37 @@ func _input(event):
 				# print("begins with letter: ",  key, "node: ", active_labels[i] ,": ",active_labels[i].begins_with(key))
 
 func _process(delta):
+	if disable_input:
+		return
+		
 	avoidGoose(delta)
 	chasePerson(delta)
 	move(delta)
 		
+func win():
+	# do person relief animation
+	cleanUpLabels()
+	print("WIN")
+	
+func fail():
+	# do mixed person screaming and goose win animation
+	cleanUpLabels()
+	$Goose.position = $Person.position
+	print("FAIL")
+
+func cleanUpLabels():
+	disable_input = true
+	$Timer.stop()
+	
+	if label_selected != null:
+		label_selected = null
+		
+	for i in range(active_labels.size()):
+		var label = active_labels[i]
+		label.cleanUp()
+	
+	active_labels.clear()
+	#print("active_labels: ", active_labels)
 	
 #### PERSON ACTIONS
 
@@ -87,26 +121,26 @@ func move(delta):
 #### TypableLabel signals
 
 func labelExpired(label):
-	print("active_labels: ", active_labels)
-	print("Expired:", label)
+	#print("active_labels: ", active_labels)
+	#print("Expired:", label)
 	active_labels.erase(label)
-	print("active_labels: ", active_labels)
+	#print("active_labels: ", active_labels)
 	if label_selected == label:
 		label_selected = null
 	goose_x -= goose_decrease_x
 	
 func labelDestroyed(label):
-	print("active_labels: ", active_labels)
-	print("Destroyed:", label)
+	#print("active_labels: ", active_labels)
+	#print("Destroyed:", label)
 	active_labels.erase(label)
-	print("active_labels: ", active_labels)
+	#print("active_labels: ", active_labels)
 	label_selected = null
 	goose_x += goose_increase_x
 	
 #### LABEL TIMER
 
 func generateLabel():
-	print("Generating label")
+	#print("Generating label")
 	var label_instance = label_scene.instance()
 	label_instance.position = Vector2(SCREEN_WIDTH - 8, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT))
 	label_instance.connect("destroyed", self, "labelDestroyed")
