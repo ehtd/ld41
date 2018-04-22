@@ -71,15 +71,21 @@ func _process(delta):
 		
 func win():
 	# do person relief animation
+	stopParallax()
 	cleanUpLabels()
 	print("WIN")
 	
 func fail():
 	# do mixed person screaming and goose win animation
+	stopParallax()
 	cleanUpLabels()
 	$Goose.position = $Person.position
 	print("FAIL")
 
+func stopParallax():
+	$b1.stop()
+	$b2.stop()
+	
 func cleanUpLabels():
 	disable_input = true
 	$Timer.stop()
