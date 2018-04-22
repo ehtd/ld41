@@ -16,11 +16,13 @@ var person_move_offset_max = SCREEN_HEIGHT - 100
 
 var goose_move_offset = 10
 var goose_speed_up = false
-var goose_increase_x = 300
+var goose_increase_x = 10
 var goose_decrease_x = 50
 var goose_x = 0
 
 var disable_input = false
+
+var game_ended = false
 
 func _ready():
 	randomize()
@@ -31,9 +33,6 @@ func _ready():
 	$Goose.connect("caughtPerson", self, "win")
 	
 func _input(event):
-	if disable_input:
-		return
-		
 	if event is InputEventKey:
 		if event.is_echo():
 			return
@@ -43,6 +42,13 @@ func _input(event):
 			var key = OS.get_scancode_string(event.scancode).to_lower()
 			#print("key: ", key)
 			
+			if key == "enter" and game_ended:
+				get_tree().change_scene("res://Menu.tscn")
+				return
+			
+			if disable_input:
+				return
+		
 			if key == "backspace" and label_selected != null:
 				label_selected.deselect()
 				label_selected = null
@@ -76,6 +82,8 @@ func win():
 	cleanUpLabels()
 	$Goose.position = $Person.position
 	print("WIN")
+	game_ended = true
+	$Instructions.visible = true
 	
 func fail():
 	# do mixed person screaming and goose win animation
@@ -83,6 +91,8 @@ func fail():
 	stopParallax()
 	cleanUpLabels()
 	print("FAIL")
+	game_ended = true
+	$Instructions.visible = true
 
 func stopParallax():
 	$b1.stop()
