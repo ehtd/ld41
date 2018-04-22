@@ -31,6 +31,7 @@ func _ready():
 	goose_x = $Goose.position.x
 	$Goose.connect("outOfBounds", self, "fail")
 	$Goose.connect("caughtPerson", self, "win")
+	$Music.play()
 	
 func _input(event):
 	if event is InputEventKey:
@@ -84,6 +85,7 @@ func win():
 	print("WIN")
 	game_ended = true
 	$Instructions.visible = true
+	#$Music.stop()
 	
 func fail():
 	# do mixed person screaming and goose win animation
@@ -93,6 +95,7 @@ func fail():
 	print("FAIL")
 	game_ended = true
 	$Instructions.visible = true
+	$Music.stop()
 
 func stopParallax():
 	$b1.stop()
