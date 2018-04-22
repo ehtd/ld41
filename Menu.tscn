@@ -7,7 +7,7 @@
 [ext_resource path="res://CustomLabel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/backgrounds/logo.png" type="Texture" id=6]
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -34,5 +34,10 @@ text = "Press -enter- to start"
 
 position = Vector2( 329, 160 )
 texture = ExtResource( 6 )
+
+[node name="by" parent="." index="5" instance=ExtResource( 5 )]
+
+position = Vector2( 5, 2 )
+text = "By: @ehtd"
 
 
