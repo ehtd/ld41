@@ -14,7 +14,7 @@ var id = get_instance_id()
 
 func select():
 	#print('Label selected: ', self)
-	$Label/ColorRect.color = '#ff00ff'
+	$Label/ColorRect.color = '#ff581e73'
 	selected = true
 
 func deselect():

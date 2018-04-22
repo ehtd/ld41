@@ -26,6 +26,6 @@ func _on_Goose_area_entered(area):
 		emitted_caught_person = true
 
 func animation_finished():
-	print("animation finished", $Sprite.animation)
+	#print("animation finished", $Sprite.animation)
 	if $Sprite.animation == "prepare_win":
 		$Sprite.play("win")
