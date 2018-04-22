@@ -4,16 +4,25 @@ const SCREEN_WIDTH = 640
 const SCREEN_HEIGHT = 320
 
 var label_scene = preload("res://TypableLabel.tscn")
-var max_count = 10
+var max_count = 50
 var current_count = 0
 
 var active_labels = []
 
 var label_selected = null
-var label_selected_index = -1
-	
+
+var move_speed = 100
+var move_up = true
+var person_move_offset_min = 100
+var person_move_offset_max = SCREEN_HEIGHT - 100
+
+var goose_move_offset = 10
+
 func _ready():
 	randomize()
+	$Goose.position = Vector2(100, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT-200))
+	$Person.position = Vector2(SCREEN_WIDTH - 200, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT-200))
+	
 	
 func _input(event):
 	if label_selected != null:
@@ -36,10 +45,32 @@ func _input(event):
 					return
 				# print("begins with letter: ",  key, "node: ", active_labels[i] ,": ",active_labels[i].begins_with(key))
 
+func _process(delta):
+	avoidGoose(delta)
+	chasePerson(delta)
+	
+#### PERSON ACTIONS
 
-func clearSelectedLabel():
-	active_labels.remove(label_selected_index)
-	label_selected = false
+func avoidGoose(delta):
+	var max_offset = person_move_offset_max + rand_range(-100, 100)
+	if move_up:
+		$Person.position -= Vector2(0.0, move_speed * delta)
+	else:
+		$Person.position += Vector2(0.0, move_speed * delta)
+		
+	if $Person.position.y <= person_move_offset_min:
+		move_up = false
+	elif $Person.position.y >= max_offset:
+		move_up = true
+	
+	
+#### GOOSE ACTIONS
+
+func chasePerson(delta):
+	var offset = rand_range(-goose_move_offset, goose_move_offset)
+	$Goose.position.y = lerp($Goose.position.y, $Person.position.y + offset, 0.1)
+
+#### TypableLabel signals
 
 func labelExpired(label):
 	print("active_labels: ", active_labels)
@@ -56,6 +87,8 @@ func labelDestroyed(label):
 	print("active_labels: ", active_labels)
 	label_selected = null
 	
+#### LABEL TIMER
+
 func generateLabel():
 	print("Generating label")
 	var label_instance = label_scene.instance()

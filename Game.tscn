@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://Person.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Goose.tscn" type="PackedScene" id=3]
 
 [node name="Game" type="Node2D" index="0"]
 
@@ -10,10 +12,20 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 [node name="Timer" type="Timer" parent="." index="0"]
 
 process_mode = 1
-wait_time = 3.0
+wait_time = 1.0
 one_shot = false
 autostart = true
 _sections_unfolded = [ "Pause" ]
+
+[node name="Person" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 403, 165 )
+frame = 0
+
+[node name="Goose" parent="." index="2" instance=ExtResource( 3 )]
+
+position = Vector2( 134, 168 )
+frame = 2
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
