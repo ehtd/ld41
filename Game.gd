@@ -17,12 +17,17 @@ var person_move_offset_min = 100
 var person_move_offset_max = SCREEN_HEIGHT - 100
 
 var goose_move_offset = 10
+var goose_min_x = 0
+var goose_speed_up = false
+var goose_increase_x = 10
+var goose_decrease_x = 50
+var goose_x = 0
 
 func _ready():
 	randomize()
 	$Goose.position = Vector2(100, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT-200))
 	$Person.position = Vector2(SCREEN_WIDTH - 200, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT-200))
-	
+	goose_x = $Goose.position.x
 	
 func _input(event):
 	if label_selected != null:
@@ -48,6 +53,8 @@ func _input(event):
 func _process(delta):
 	avoidGoose(delta)
 	chasePerson(delta)
+	move(delta)
+		
 	
 #### PERSON ACTIONS
 
@@ -70,6 +77,9 @@ func chasePerson(delta):
 	var offset = rand_range(-goose_move_offset, goose_move_offset)
 	$Goose.position.y = lerp($Goose.position.y, $Person.position.y + offset, 0.1)
 
+func move(delta):
+	$Goose.position.x = lerp($Goose.position.x, goose_x, 0.1)
+
 #### TypableLabel signals
 
 func labelExpired(label):
@@ -79,6 +89,7 @@ func labelExpired(label):
 	print("active_labels: ", active_labels)
 	if label_selected == label:
 		label_selected = null
+	goose_x -= goose_decrease_x
 	
 func labelDestroyed(label):
 	print("active_labels: ", active_labels)
@@ -86,6 +97,7 @@ func labelDestroyed(label):
 	active_labels.erase(label)
 	print("active_labels: ", active_labels)
 	label_selected = null
+	goose_x += goose_increase_x
 	
 #### LABEL TIMER
 
