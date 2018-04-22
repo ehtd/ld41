@@ -11,7 +11,15 @@ config_version=3
 [application]
 
 config/name="ld41"
+run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=640
+window/size/height=360
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [rendering]
 

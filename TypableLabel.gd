@@ -1,9 +1,15 @@
 extends Node2D
 
-signal destroyed()
+signal destroyed(typableLabel)
+signal expired(typableLabel)
 
 var original = ""
 var selected = false
+
+var move_speed = 100.0
+
+var moving = true
+var id = get_instance_id()
 
 func select():
 	print('Label selected: ', self)
@@ -32,7 +38,27 @@ func generateWord():
 func _ready():
 	original = generateWord()
 	$Label.text = original
+	
 
+func destroy():
+	prints("destroying")
+	emit_signal("destroyed", self)
+	selected = false
+	queue_free()
+
+func expire():
+	prints("expired")
+	emit_signal("expired", self)
+	selected = false
+	queue_free()
+	
+func _process(delta):
+	if moving:
+		position -= Vector2(move_speed * delta, 0.0)
+
+	if position.x <= -8:
+		expire()
+		
 func tryToRemove(letter):
 	prints("Current word ", original)
 	if original.empty():
@@ -44,10 +70,7 @@ func tryToRemove(letter):
 		$Label.text = original
 		
 		if original.empty():
-			prints("destroying")
-			emit_signal("destroyed")
-			selected = false
-			queue_free()
+			destroy()
 	
 		
 func _input(event):
