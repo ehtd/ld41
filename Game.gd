@@ -169,3 +169,4 @@ func generateLabel():
 	
 func _on_Timer_timeout():
 	generateLabel()
+	$SFXPlayer.play()

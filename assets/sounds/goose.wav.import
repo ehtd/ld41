@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/goose.wav-d5ce11472c46fd1d0c9f4299a03bf103.sample"
+
+[deps]
+
+source_file="res://assets/sounds/goose.wav"
+source_md5="36049b536a5b0eabf2e8035d1e2f2e30"
+
+dest_files=[ "res://.import/goose.wav-d5ce11472c46fd1d0c9f4299a03bf103.sample" ]
+dest_md5="d2bd9520af8b2efbf75a82db386a03f0"
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
