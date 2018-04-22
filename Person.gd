@@ -6,7 +6,6 @@ extends Area2D
 
 func _ready():
 	$Sprite.connect("animation_finished", self, "animation_finished")
-	pass
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

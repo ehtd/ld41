@@ -70,6 +70,7 @@ func _process(delta):
 		
 func win():
 	# do person relief animation
+	$Goose/Sprite.play("prepare_win")
 	$Person/Sprite.play("give_up")
 	stopParallax()
 	cleanUpLabels()
