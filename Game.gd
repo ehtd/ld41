@@ -4,8 +4,6 @@ const SCREEN_WIDTH = 640
 const SCREEN_HEIGHT = 320
 
 var label_scene = preload("res://TypableLabel.tscn")
-var max_count = 50
-var current_count = 0
 
 var active_labels = []
 
@@ -30,9 +28,6 @@ func _ready():
 	goose_x = $Goose.position.x
 	
 func _input(event):
-	if label_selected != null:
-		return
-		
 	if event is InputEventKey:
 		if event.is_echo():
 			return
@@ -40,7 +35,16 @@ func _input(event):
 		if event.pressed:
 			print("active_labels: ", active_labels)
 			var key = OS.get_scancode_string(event.scancode).to_lower()
+			print("key: ", key)
 			
+			if key == "backspace" and label_selected != null:
+				label_selected.deselect()
+				label_selected = null
+				return
+				
+			if label_selected != null:
+				return
+		
 			for i in range(active_labels.size()):
 				var label = active_labels[i]
 				if active_labels[i].begins_with(key):
@@ -112,9 +116,4 @@ func generateLabel():
 	active_labels.append(label_instance)
 	
 func _on_Timer_timeout():
-	if current_count >= max_count:
-		return
-	
-	current_count += 1
-	
 	generateLabel()

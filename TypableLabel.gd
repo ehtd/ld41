@@ -5,6 +5,7 @@ signal expired(typableLabel)
 
 var original = ""
 var selected = false
+var backup = ""
 
 var move_speed = 100.0
 
@@ -13,10 +14,14 @@ var id = get_instance_id()
 
 func select():
 	print('Label selected: ', self)
+	$Label/ColorRect.color = '#ff00ff'
 	selected = true
 
 func deselect():
 	selected = false
+	$Label/ColorRect.color = '#000000'
+	original = backup
+	$Label.text = original
 	
 func begins_with(letter):
 	return original.begins_with(letter)
@@ -37,8 +42,9 @@ func generateWord():
 	
 func _ready():
 	original = generateWord()
+	backup = original
 	$Label.text = original
-	
+	$Label/ColorRect.color = '#000000'
 
 func destroy():
 	prints("destroying")
