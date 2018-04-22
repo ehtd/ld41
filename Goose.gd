@@ -10,7 +10,7 @@ func _process(delta):
 	if emitted_out_of_bounds:
 		return
 		
-	if position.x <= 0:
+	if position.x <= -80:
 		emit_signal("outOfBounds")
 		emitted_out_of_bounds = true
 

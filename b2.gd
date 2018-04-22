@@ -4,7 +4,7 @@ var speed = 100.0
 var stopped = false
 
 func _ready():
-	position.x = 1920
+	position.x = 1910
 	
 func _process(delta):
 	if stopped:

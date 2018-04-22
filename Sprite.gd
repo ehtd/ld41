@@ -17,3 +17,4 @@ func _process(delta):
 	
 func stop():
 	stopped = true
+	

@@ -15,7 +15,6 @@ var person_move_offset_min = 100
 var person_move_offset_max = SCREEN_HEIGHT - 100
 
 var goose_move_offset = 10
-var goose_min_x = 0
 var goose_speed_up = false
 var goose_increase_x = 10
 var goose_decrease_x = 50
@@ -73,13 +72,14 @@ func win():
 	# do person relief animation
 	stopParallax()
 	cleanUpLabels()
+	$Goose.position = $Person.position
 	print("WIN")
 	
 func fail():
 	# do mixed person screaming and goose win animation
+	$Person/Sprite.play("crying")
 	stopParallax()
 	cleanUpLabels()
-	$Goose.position = $Person.position
 	print("FAIL")
 
 func stopParallax():
