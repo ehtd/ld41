@@ -9,6 +9,9 @@ var active_labels = []
 var label_selected = false
 var label_selected_index = -1
 
+func _ready():
+	randomize()
+	
 func _input(event):
 	if label_selected:
 		return

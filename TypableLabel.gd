@@ -16,7 +16,18 @@ func begins_with(letter):
 	return original.begins_with(letter)
 	
 func generateWord():
-	return "word"
+	var words = ["lunatic",
+"grabs",
+"basis",
+"against",
+"lean",
+"paper",
+"calculated",
+"purge",
+"scores"]
+
+	var random_index = rand_range(0, words.size() - 1)
+	return words[random_index]
 	
 func _ready():
 	original = generateWord()
