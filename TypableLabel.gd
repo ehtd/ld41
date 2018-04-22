@@ -1,14 +1,26 @@
-extends Label
+extends Node2D
+
+signal destroyed()
 
 var original = ""
-var selected = true
+var selected = false
 
+func select():
+	print('Label selected: ', self)
+	selected = true
+
+func deselect():
+	selected = false
+	
+func begins_with(letter):
+	return original.begins_with(letter)
+	
 func generateWord():
 	return "word"
 	
 func _ready():
 	original = generateWord()
-	text = original
+	$Label.text = original
 
 func tryToRemove(letter):
 	prints("Current word ", original)
@@ -18,10 +30,13 @@ func tryToRemove(letter):
 	if original.begins_with(letter):
 		prints("begins")
 		original.erase(0, 1)
-		text = original
+		$Label.text = original
 		
 		if original.empty():
 			prints("destroying")
+			emit_signal("destroyed")
+			selected = false
+			queue_free()
 	
 		
 func _input(event):
@@ -31,7 +46,7 @@ func _input(event):
 	if event is InputEventKey:
 		if event.is_echo():
 			return
-			
+
 		if event.pressed:
 			var key = OS.get_scancode_string(event.scancode).to_lower()
 			prints("Key pressed", key)
