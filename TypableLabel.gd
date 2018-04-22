@@ -13,7 +13,7 @@ var moving = true
 var id = get_instance_id()
 
 func select():
-	print('Label selected: ', self)
+	#print('Label selected: ', self)
 	$Label/ColorRect.color = '#ff00ff'
 	selected = true
 
@@ -47,7 +47,7 @@ func _ready():
 	$Label/ColorRect.color = '#000000'
 
 func destroy():
-	prints("destroying")
+	#prints("destroying")
 	emit_signal("destroyed", self)
 	selected = false
 	queue_free()

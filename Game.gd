@@ -17,7 +17,7 @@ var person_move_offset_max = SCREEN_HEIGHT - 100
 var goose_move_offset = 10
 var goose_min_x = 0
 var goose_speed_up = false
-var goose_increase_x = 100
+var goose_increase_x = 10
 var goose_decrease_x = 50
 var goose_x = 0
 
