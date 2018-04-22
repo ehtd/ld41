@@ -1,31 +1,45 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Person.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/human/crying/human_crying_0.png" type="Texture" id=2]
-[ext_resource path="res://assets/sprites/human/crying/human_crying_1.png" type="Texture" id=3]
-[ext_resource path="res://assets/sprites/human/crying/human_crying_2.png" type="Texture" id=4]
-[ext_resource path="res://assets/sprites/human/crying/human_crying_3.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/human/tired/human_tired_0.png" type="Texture" id=6]
-[ext_resource path="res://assets/sprites/human/tired/human_tired_1.png" type="Texture" id=7]
-[ext_resource path="res://assets/sprites/human/running/human_running_0.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/human/running/human_running_1.png" type="Texture" id=9]
-[ext_resource path="res://assets/sprites/human/running/human_running_2.png" type="Texture" id=10]
-[ext_resource path="res://assets/sprites/human/running/human_running_3.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/human/give_up/human_give_up_0.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/human/give_up/human_give_up_1.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/human/give_up/human_give_up_2.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/human/give_up/human_give_up_3.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/human/crying/human_crying_0.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/human/crying/human_crying_1.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/human/crying/human_crying_2.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/human/crying/human_crying_3.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/human/tired/human_tired_0.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/human/tired/human_tired_1.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/human/running/human_running_0.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/human/running/human_running_1.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/human/running/human_running_2.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/human/running/human_running_3.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
+"name": "give_up",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
 "name": "crying",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "tired",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "end",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "default",
 "speed": 10.0
@@ -53,7 +67,6 @@ script = ExtResource( 1 )
 
 frames = SubResource( 1 )
 animation = "default"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]

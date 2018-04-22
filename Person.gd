@@ -18,3 +18,5 @@ func animation_finished():
 	print("animation finished", $Sprite.animation)
 	if $Sprite.animation == "crying":
 		$Sprite.play("tired")
+	elif $Sprite.animation == "give_up":
+		$Sprite.play("end")
