@@ -24,6 +24,8 @@ var disable_input = false
 
 var game_ended = false
 
+var skip_once = false
+
 func _ready():
 	randomize()
 	$Goose.position = Vector2(200, rand_range(SCREEN_HEIGHT - 100, SCREEN_HEIGHT-200))
@@ -58,6 +60,11 @@ func _input(event):
 			if label_selected != null:
 				return
 		
+			# There is a bug where the last letter of the word will pick up the first letter of another word
+			if skip_once:
+				skip_once = false
+				return
+				
 			for i in range(active_labels.size()):
 				var label = active_labels[i]
 				if active_labels[i].begins_with(key):
@@ -157,6 +164,7 @@ func labelDestroyed(label):
 	#print("active_labels: ", active_labels)
 	label_selected = null
 	goose_x += goose_increase_x
+	skip_once = true
 	
 #### LABEL TIMER
 
