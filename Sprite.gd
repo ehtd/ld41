@@ -12,8 +12,8 @@ func _process(delta):
 		return
 		
 	position.x -= speed * delta
-	if position.x <= -640:
-		position.x = 640*3 - 10
+	if position.x <= -630:
+		position.x = 1900
 	
 func stop():
 	stopped = true
